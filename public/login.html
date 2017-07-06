@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat | Login</title>
+    <script src="jquery.min.js"></script>
+</head>
+<body>
+    <script>
+       function userAdd() {
+           $.ajax({
+               url: "/api/users",
+               type: 'POST',
+               data: {
+                   firstName: $("#firstname").val(),
+                   lastName: $("#lastname").val()
+               },
+               success: function(data){
+                   localStorage.setItem('token', data.token);
+                   location.href="/main.html";
+               },
+               error: function(err) {
+
+               }
+           });
+       }
+    </script>
+    <input type="text" id="firstname" placeholder="Name">
+    <input type="text" id="lastname" placeholder="Surname"></br></br>
+    <button onclick="userAdd()">Login</button>
+</body>
+</html>

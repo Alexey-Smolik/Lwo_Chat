@@ -8,11 +8,13 @@ routes.post('/', (req, res) => {
     if(!req.body.firstName || !req.body.lastName){
         res.status(400).send({ status: "error", message: "Wrong params" });
     }
-    var token = jwt.sign({ firstName: req.body.firstName, lastName: req.body.lastName }, config.secret_key);
     users.build({firstName: req.body.firstName, lastName: req.body.lastName}).save()
         .then(result => {
-            res.status(200).send({ token: token });
+            res.status(200).send({ message: "success" });
         })
+        .catch(err => {
+            res.status(500).send({ status: "error", message: "Server error" });
+        });
 });
 
 routes.get("/", (req, res) => {

@@ -9,7 +9,7 @@
     <script>
        function userAdd() {
            $.ajax({
-               url: "/api/users",
+               url: "/api/session/login",
                type: 'POST',
                data: {
                    firstName: $("#firstname").val(),
@@ -20,7 +20,7 @@
                    location.href="/main.html";
                },
                error: function(err) {
-
+                    alert("Server error");
                }
            });
        }
@@ -28,5 +28,6 @@
     <input type="text" id="firstname" placeholder="Name">
     <input type="text" id="lastname" placeholder="Surname"></br></br>
     <button onclick="userAdd()">Login</button>
+    <button onclick="location.href='registration.html'">Auth</button>
 </body>
 </html>

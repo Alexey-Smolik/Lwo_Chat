@@ -29,7 +29,7 @@ io.on('connection', function(socket){
     var decoded = jwt.verify(socket.handshake.query.token, config.secret_key);
     io.emit('connect message', decoded.firstName + " " + decoded.lastName + " connected");
     socket.on('disconnect', function(){
-        io.emit('connect message', decoded.firstName + " " + decoded.lastName + " disconnected");
+        io.emit('disconnect message', decoded.firstName + " " + decoded.lastName + " disconnected");
     });
     socket.on('chat message', function(msg){
         io.emit('chat message', decoded.firstName + " " + decoded.lastName + ": " + msg);

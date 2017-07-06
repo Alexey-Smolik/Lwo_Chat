@@ -27,13 +27,12 @@ io.set('authorization', socketioJwt.authorize({
 
 io.on('connection', function(socket){
     var decoded = jwt.verify(socket.handshake.query.token, config.secret_key);
-    //console.log(decoded);
-    //console.log('a user ' + socket.handshake.decoded_token.firstName + " " + socket.handshake.decoded_token.lastName + ' connected');
+    io.emit('connect message', decoded.firstName + " " + decoded.lastName + " connected");
     socket.on('disconnect', function(){
-        console.log('user' + socket.handshake.decoded_token.firstName + " " + socket.handshake.decoded_token.lastName + 'disconnected');
+        io.emit('connect message', decoded.firstName + " " + decoded.lastName + " disconnected");
     });
     socket.on('chat message', function(msg){
-        io.emit('chat message', socket.handshake.decoded_token.firstName + " " + socket.handshake.decoded_token.lastName + ": " + msg);
+        io.emit('chat message', decoded.firstName + " " + decoded.lastName + ": " + msg);
     });
 });
 
